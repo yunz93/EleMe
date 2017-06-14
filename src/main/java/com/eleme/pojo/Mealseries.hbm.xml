@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.eleme.pojo.Mealseries" table="mealseries" schema="restrant">
+        <id name="seriesId">
+            <column name="SeriesId" sql-type="int(4)"/>
+            <generator class="native" />
+        </id>
+        <property name="seriesName">
+            <column name="SeriesName" sql-type="varchar(10)" length="10" not-null="true"/>
+        </property>
+        <set name="meals" inverse="true" lazy="false">
+            <key>
+                <column name="MealSeriesId" />
+            </key>
+            <one-to-many class="com.eleme.pojo.Meal" />
+        </set>
+    </class>
+</hibernate-mapping>

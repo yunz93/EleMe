@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.eleme.pojo.Orderdts" table="orderdts" schema="restrant">
+        <id name="odid">
+            <column name="ODID" sql-type="int(4)"/>
+            <generator class="native"/>
+        </id>
+        <many-to-one name="meal" class="com.eleme.pojo.Meal"
+                     fetch="select" lazy="false">
+            <column name="MealId" />
+        </many-to-one>
+        <many-to-one name="orders" cascade="all"
+                     class="com.eleme.pojo.Orders" fetch="select" lazy="false">
+            <column name="OID" />
+        </many-to-one>
+        <property name="mealPrice">
+            <column name="MealPrice" sql-type="decimal(8,2)" precision="8" scale="2" not-null="true"/>
+        </property>
+        <property name="mealCount">
+            <column name="MealCount" sql-type="int(4)" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+    <bean id="dataSource"
+          class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName"
+                  value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/restrant"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="93139"></property>
+    </bean>
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource">
+            <ref bean="dataSource" />
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">
+                    org.hibernate.dialect.MySQL5InnoDBDialect
+                </prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/restrant</prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+            </props>
+        </property>
+        <property name="mappingLocations">
+            <list>
+                <value>classpath:com/eleme/pojo/Admin.hbm.xml</value>
+                <value>classpath:com/eleme/pojo/Meal.hbm.xml</value>
+                <value>classpath:com/eleme/pojo/Mealseries.hbm.xml</value>
+                <value>classpath:com/eleme/pojo/Orderdts.hbm.xml</value>
+                <value>classpath:com/eleme/pojo/Orders.hbm.xml</value>
+                <value>classpath:com/eleme/pojo/Users.hbm.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--  定义事务通知    -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED" />
+        </tx:attributes>
+    </tx:advice>
+
+    <!--定义切面，并将事务通知和切面组合（定义哪些方法应用事务规则） -->
+    <aop:config>
+        <!-- 对com.news.biz包下的所有类的所有方法都应用事务规则 -->
+        <aop:pointcut id="bizMethods" expression="execution(* com.eleme.biz.*.*(..))" />
+        <!--  将事务通知和切面组合   -->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="bizMethods" />
+    </aop:config>
+
+    <!-- 声明Hibernate事务管理器 -->
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager" />
+</beans>

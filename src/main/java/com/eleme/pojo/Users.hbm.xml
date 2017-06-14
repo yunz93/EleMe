@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.eleme.pojo.Users" table="users" schema="restrant">
+        <id name="id">
+            <column name="Id" sql-type="int(4)"/>
+            <generator class="native"/>
+        </id>
+        <property name="loginName">
+            <column name="LoginName" sql-type="varchar(20)" length="20" not-null="true"/>
+        </property>
+        <property name="loginPwd">
+            <column name="LoginPwd" sql-type="varchar(20)" length="20" not-null="true"/>
+        </property>
+        <property name="trueName">
+            <column name="TrueName" sql-type="varchar(20)" length="20" not-null="true"/>
+        </property>
+        <property name="email">
+            <column name="Email" sql-type="varchar(20)" length="20" not-null="true"/>
+        </property>
+        <property name="phone">
+            <column name="Phone" sql-type="varchar(20)" length="20" not-null="true"/>
+        </property>
+        <property name="address">
+            <column name="Address" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <set name="orderses" inverse="true" lazy="false">
+            <key>
+                <column name="UserId" />
+            </key>
+            <one-to-many class="com.eleme.pojo.Orders" />
+        </set>
+    </class>
+</hibernate-mapping>
