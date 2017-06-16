@@ -5,4 +5,12 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
+    <constant name="struts.i18n.encoding" value="GBK" />
+
+    <package name="eleme" extends="struts-default" namespace="/">
+        <!--meal action toShowMeal.jsp-->
+        <action name="toShowMeal" class="mealAction" method="toShowMeal">
+            <result name="toShowMeal">/show.jsp</result>
+        </action>
+    </package>
 </struts>

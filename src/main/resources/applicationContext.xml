@@ -19,6 +19,7 @@
         <property name="username" value="root"></property>
         <property name="password" value="93139"></property>
     </bean>
+
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource">
@@ -29,18 +30,16 @@
                 <prop key="hibernate.dialect">
                     org.hibernate.dialect.MySQL5InnoDBDialect
                 </prop>
-                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/restrant</prop>
-                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
             </props>
         </property>
         <property name="mappingLocations">
             <list>
-                <value>classpath:com/eleme/pojo/Admin.hbm.xml</value>
-                <value>classpath:com/eleme/pojo/Meal.hbm.xml</value>
-                <value>classpath:com/eleme/pojo/Mealseries.hbm.xml</value>
-                <value>classpath:com/eleme/pojo/Orderdts.hbm.xml</value>
-                <value>classpath:com/eleme/pojo/Orders.hbm.xml</value>
-                <value>classpath:com/eleme/pojo/Users.hbm.xml</value>
+                <value>classpath:Admin.hbm.xml</value>
+                <value>classpath:Meal.hbm.xml</value>
+                <value>classpath:Mealseries.hbm.xml</value>
+                <value>classpath:Orderdts.hbm.xml</value>
+                <value>classpath:Orders.hbm.xml</value>
+                <value>classpath:Users.hbm.xml</value>
             </list>
         </property>
     </bean>
@@ -66,4 +65,30 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <!--define MealDAOImpl class-->
+    <bean id="mealDAO" class="com.eleme.dao.impl.MealDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <!--define MealSeriesDAOImpl class-->
+    <bean id="mealSeriesDAO" class="com.eleme.dao.impl.MealSeriesDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <!--define meal biz impl class-->
+    <bean id="mealBiz" class="com.eleme.biz.impl.MealBizImpl">
+        <property name="mealDAO" ref="mealDAO" />
+    </bean>
+
+    <!--define meal series biz impl class-->
+    <bean id="mealSeriesBiz" class="com.eleme.biz.impl.MealSeriesBizImpl">
+        <property name="mealSeriesDAO" ref="mealSeriesDAO" />
+    </bean>
+
+    <!--define Meal Action-->
+    <bean name="mealAction" class="com.eleme.action.MealAction" scope="prototype">
+        <property name="mealBiz" ref="mealBiz" />
+        <property name="mealSeriesBiz" ref="mealSeriesBiz" />
+    </bean>
 </beans>
