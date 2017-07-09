@@ -9,12 +9,16 @@
 
     <package name="eleme" extends="struts-default" namespace="/">
         <!--meal action toShowMeal.jsp-->
+
         <action name="toShowMeal" class="mealAction" method="toShowMeal">
-            <result name="toShowMeal">/show.jsp</result>
+            <result name="toShowMeal">/index.jsp</result>
         </action>
 
         <action name="validateLogin" class="userAction" method="validateLogin">
-            <result name="toShowMeal" type="redirectAction">toShowMeal</result>
+            <result name="toIndex" type="redirectAction">toShowMeal</result>
+        </action>
+        <action name="logOut" class="userAction" method="logOut">
+            <result name="toIndex" type="redirectAction">toShowMeal</result>
         </action>
     </package>
 </struts>
