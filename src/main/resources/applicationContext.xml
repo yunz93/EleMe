@@ -91,4 +91,19 @@
         <property name="mealBiz" ref="mealBiz" />
         <property name="mealSeriesBiz" ref="mealSeriesBiz" />
     </bean>
+
+    <!--define UserDAOImpl-->
+    <bean id="userDAO" class="com.eleme.dao.impl.UserDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <!--define UserBizImpl-->
+    <bean id="userBiz" class="com.eleme.biz.impl.UserBizImpl">
+        <property name="userDAO" ref="userDAO" />
+    </bean>
+
+    <!--define UserAction-->
+    <bean name="userAction" class="com.eleme.action.UserAction" scope="prototype">
+        <property name="userBiz" ref="userBiz" />
+    </bean>
 </beans>

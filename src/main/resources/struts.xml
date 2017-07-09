@@ -12,5 +12,9 @@
         <action name="toShowMeal" class="mealAction" method="toShowMeal">
             <result name="toShowMeal">/show.jsp</result>
         </action>
+
+        <action name="validateLogin" class="userAction" method="validateLogin">
+            <result name="toShowMeal" type="redirectAction">toShowMeal</result>
+        </action>
     </package>
 </struts>
