@@ -8,17 +8,66 @@
     <constant name="struts.i18n.encoding" value="GBK" />
 
     <package name="eleme" extends="struts-default" namespace="/">
+        <!-- 配置拦截器AuthorityInterceptor -->
+        <interceptors>
+            <interceptor name="loginCheck" class="com.restrant.interceptor.AuthorityInterceptor" />
+        </interceptors>
+
+        <!--  设置全局的返回值,返回首页 -->
+        <global-results>
+            <result name="login" type="redirectAction">toShowMeal</result>
+        </global-results>
+
         <!--meal action toShowMeal.jsp-->
 
+        <!--显示菜品首页-->
         <action name="toShowMeal" class="mealAction" method="toShowMeal">
             <result name="toShowMeal">/index.jsp</result>
         </action>
 
+        <!--验证登录-->
         <action name="validateLogin" class="userAction" method="validateLogin">
             <result name="toIndex" type="redirectAction">toShowMeal</result>
         </action>
+
+        <!--用户登出-->
         <action name="logOut" class="userAction" method="logOut">
             <result name="toIndex" type="redirectAction">toShowMeal</result>
+        </action>
+
+        <!--添加到购物车-->
+        <action name="addToShopcart" class="cartAction" method="addToShopcart">
+            <result name="shopCart">/shopCart.jsp</result>
+            <interceptor-ref name="loginCheck" />
+            <interceptor-ref name="defaultStack" />
+        </action>
+
+        <!--更新购物车中餐品数量-->
+        <action name="updateSelectedQuantity" class="cartAction" method="updateSelectedQuantity">
+            <result name="shopCart">/shopCart.jsp</result>
+            <interceptor-ref name="loginCheck" />
+            <interceptor-ref name="defaultStack" />
+        </action>
+
+        <!--删除购物车中的餐品-->
+        <action name="deleteSelectedOrders" class="cartAction" method="deleteSelectedOrders">
+            <result name="shopCart">/shopCart.jsp</result>
+            <interceptor-ref name="loginCheck" />
+            <interceptor-ref name="defaultStack" />
+        </action>
+
+        <!--清空购物车-->
+        <action name="clearCart" class="cartAction" method="clearCart">
+            <result name="shopCart">/shopCart.jsp</result>
+            <interceptor-ref name="loginCheck" />
+            <interceptor-ref name="defaultStack" />
+        </action>
+
+        <!--生成订单-->
+        <action name="addOrders" class="ordersAction" method="addOrders">
+            <result name="show" type="redirectAction">toShowMeal</result>
+            <interceptor-ref name="loginCheck" />
+            <interceptor-ref name="defaultStack" />
         </action>
     </package>
 </struts>

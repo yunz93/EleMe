@@ -106,4 +106,33 @@
     <bean name="userAction" class="com.eleme.action.UserAction" scope="prototype">
         <property name="userBiz" ref="userBiz" />
     </bean>
+
+    <!--define cartAction-->
+    <bean name="cartAction" class="com.eleme.action.CartAction" scope="prototype">
+        <property name="mealBiz" ref="mealBiz" />
+    </bean>
+
+    <!--define OrderDtsDAOImpl-->
+    <bean id="orderDtsDAO" class="com.eleme.dao.impl.OrderDtsDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <!--define orderDtsBizImpl-->
+    <bean id="orderDtsBiz" class="com.eleme.biz.impl.OrderDtsBizImpl">
+        <property name="orderDtsDAO" ref="orderDtsDAO" />
+    </bean>
+
+    <!--define OrdersAction-->
+    <bean id="ordersAction" class="com.eleme.action.OrdersAction" scope="prototype">
+        <property name="orderDtsBiz" ref="orderDtsBiz" />
+    </bean>
+
+    <!--define OrdersDAOImpl-->
+    <bean id="ordersDAO" class="com.eleme.dao.impl.OrdersDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="ordersBiz" class="com.eleme.biz.impl.OrdersBizImpl">
+        <property name="ordersDAO" ref="ordersDAO" />
+    </bean>
 </beans>

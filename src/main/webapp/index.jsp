@@ -34,15 +34,15 @@
                     <s:if test="#session.user!=null">
                         <a href="modifyMyInfo.jsp">修改个人信息</a> |
                         <a href="shopCart.jsp">我的购物车</a> |
-                        <a href="">我的订单</a> |
-                        <a href="eleme/logOut?type=userlogout">注销</a> &nbsp;&nbsp; &nbsp;&nbsp;
+                        <a href="toMyOrders">我的订单</a> |
+                        <a href="logOut?type=userlogout">注销</a> &nbsp;&nbsp; &nbsp;&nbsp;
                         <font style="color: red">欢迎您：${sessionScope.user.trueName }</font>
                     </s:if>
                     <s:if test="#session.admin!=null">
                         <a href="">添加餐品</a> |
                         <a href="">管理餐品</a> |
                         <a href="">订单处理</a> |
-                        <a href="eleme/logOut?type=adminlogout">注销</a> &nbsp;&nbsp; &nbsp;&nbsp;
+                        <a href="logOut?type=adminlogout">注销</a> &nbsp;&nbsp; &nbsp;&nbsp;
                         <font style="color: red">欢迎您：${sessionScope.admin.loginName }</font>
                     </s:if>
                 </td>
@@ -56,7 +56,7 @@
                         <!-- 菜系循环开始 -->
                         <s:iterator id="mealSeries" value="#request.mealSeriesList">
                         <br>
-                        <a href="eleme/toShowMeal?meal.mealseries.seriesId=${mealSeries.seriesId}">${mealSeries.seriesName }</a>
+                        <a href="toShowMeal?meal.mealseries.seriesId=${mealSeries.seriesId}">${mealSeries.seriesName }</a>
                         <br>
                         </s:iterator>
                         <!-- 菜系循环结束 -->
@@ -90,7 +90,7 @@
                                 <tr>
                             </s:if>
                             <td>
-                                <a href="eleme/toShowMeal?meal.mealId=${mealItem.mealId}"><img
+                                <a href="toShowMeal?meal.mealId=${mealItem.mealId}"><img
                                         src="mealimages/${mealItem.mealImage }" width="148"
                                         height="126" border="0" /> </a>
                             </td>
@@ -106,8 +106,8 @@
                                         ${ mealItem.mealPrice*0.9}
                                     元
                                 </div>
-                                <a href="eleme/toShowMeal?meal.mealId=${mealItem.mealId}"><img src="images/detail_cn.gif" border="0" width="60" height="20" /></a>
-                                <a href="eleme/toShowMeal?mealId=${mealItem.mealId }"><img src="images/buy_cn.gif" border="0" width="60" height="20" /></a>
+                                <a href="toShowMeal?meal.mealId=${mealItem.mealId}"><img src="images/detail_cn.gif" border="0" width="60" height="20" /></a>
+                                <a href="addToShopcart?mealId=${mealItem.mealId }"><img src="images/buy_cn.gif" border="0" width="60" height="20" /></a>
                             </td>
                             <s:if test="#st.getIndex()%3==2">
                                 </tr>
@@ -121,14 +121,14 @@
                                 <td width="130"></td>
                                 <td width="80">
                                     <s:if test="pager.curPage>1">
-                                        <A href='eleme/toShowMeal?pager.curPage=1&meal.mealseries.seriesId=${requestScope.seriesId}&meal.mealName=${requestScope.mealName}'>首页</A>&nbsp;&nbsp;
-                                        <A href='eleme/toShowMeal?pager.curPage=${pager.curPage-1 }&meal.mealseries.seriesId=${requestScope.seriesId}&meal.mealName=${requestScope.mealName}'>上一页</A>
+                                        <A href='toShowMeal?pager.curPage=1&meal.mealseries.seriesId=${requestScope.seriesId}&meal.mealName=${requestScope.mealName}'>首页</A>&nbsp;&nbsp;
+                                        <A href='toShowMeal?pager.curPage=${pager.curPage-1 }&meal.mealseries.seriesId=${requestScope.seriesId}&meal.mealName=${requestScope.mealName}'>上一页</A>
                                     </s:if>
                                 </td>
                                 <td width="80">
                                     <s:if test="pager.curPage < pager.pageCount">
-                                        <A href='eleme/toShowMeal?pager.curPage=${pager.curPage+1}&meal.mealseries.seriesId=${requestScope.seriesId}&meal.mealName=${requestScope.mealName}'>下一页</A>&nbsp;&nbsp;
-                                        <A href='eleme/toShowMeal?pager.curPage=${pager.pageCount }&meal.mealseries.seriesId=${requestScope.seriesId}&meal.mealName=${requestScope.mealName}'>尾页</A>
+                                        <A href='toShowMeal?pager.curPage=${pager.curPage+1}&meal.mealseries.seriesId=${requestScope.seriesId}&meal.mealName=${requestScope.mealName}'>下一页</A>&nbsp;&nbsp;
+                                        <A href='toShowMeal?pager.curPage=${pager.pageCount }&meal.mealseries.seriesId=${requestScope.seriesId}&meal.mealName=${requestScope.mealName}'>尾页</A>
                                     </s:if>
                                 </td>
                                 <td>共${pager.rowCount}记录，共${pager.curPage}/${pager.pageCount}页&nbsp;&nbsp;

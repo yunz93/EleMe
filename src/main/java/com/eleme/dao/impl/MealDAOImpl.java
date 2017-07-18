@@ -88,4 +88,41 @@ public class MealDAOImpl implements MealDAO {
         }
         return c.list().size();
     }
+
+    @Override
+    public List getMealBySeries(int mealSeries, int page) {
+        Session session=sessionFactory.getCurrentSession();
+        Criteria c=session.createCriteria(Meal.class);
+        c.add(Restrictions.eq("mealseries.seriesId", mealSeries));
+        c.setFirstResult(6*(page-1));
+        c.setMaxResults(6);
+        return c.list();
+    }
+
+    @Override
+    public Meal getMealByMealId(int mealId) {
+        Session session=sessionFactory.getCurrentSession();
+        return (Meal)session.get(Meal.class, mealId);
+    }
+
+    // 添加餐品
+    @Override
+    public void addMeal(Meal meal) {
+        Session session=sessionFactory.getCurrentSession();
+        session.save(meal);
+    }
+
+    // 删除菜品
+    @Override
+    public void deleteMeal(Meal meal) {
+        Session session=sessionFactory.getCurrentSession();
+        session.delete(meal);
+    }
+
+    // 修改餐品
+    @Override
+    public void updateMeal(Meal meal) {
+        Session session=sessionFactory.getCurrentSession();
+        session.update(meal);
+    }
 }

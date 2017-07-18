@@ -20,4 +20,20 @@ public interface MealDAO {
 
     // 统计符合查询条件的餐品总数
     public Integer getCountOfMeal (Meal condition);
+
+    //获取指定菜系和指定页显示的餐品列表
+    public List getMealBySeries(int mealSeries,int page);
+
+
+    //根据编号加载菜品
+    public Meal getMealByMealId(int mealId);
+
+    //添加餐品
+    public void addMeal(Meal meal);
+
+    //删除餐品
+    public void deleteMeal(Meal meal);
+
+    //修改餐品对象
+    public void updateMeal(Meal meal);
 }
