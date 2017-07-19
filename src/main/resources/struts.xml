@@ -90,5 +90,43 @@
             <interceptor-ref name="loginCheck" />
             <interceptor-ref name="defaultStack" />
         </action>
+
+        <!--转向添加餐品-->
+        <action name="toAddMeal" class="mealAction" method="toAddMeal">
+            <result name="addMeal">/addMeal.jsp</result>
+        </action>
+
+        <!--添加菜品-->
+        <action name="doAddMeal" class="mealAction" method="doAddMeal">
+            <result name="toShowMeal" type="redirectAction">toShowMeal</result>
+        </action>
+
+        <!--显示菜品管理页-->
+        <action name="toManageMeal" class="mealAction" method="toManageMeal">
+            <result name="manageMeal">/manageMeal.jsp</result>
+            <interceptor-ref name="loginCheck" />
+            <interceptor-ref name="defaultStack" />
+        </action>
+
+        <!--显示菜品修改页-->
+        <action name="toUpdateMeal" class="mealAction" method="toUpdateMeal">
+            <result name="updateMeal">/updateMeal.jsp</result>
+            <interceptor-ref name="loginCheck" />
+            <interceptor-ref name="defaultStack" />
+        </action>
+
+        <!--修改菜品信息-->
+        <action name="doUpdateMeal" class="mealAction" method="doUpdateMeal">
+            <result name="toShowMeal" type="redirectAction">toShowMeal</result>
+            <interceptor-ref name="loginCheck" />
+            <interceptor-ref name="defaultStack" />
+        </action>
+
+        <!--删除菜品-->
+        <action name="deleteMeal" class="mealAction" method="deleteMeal">
+            <result name="toManageMeal" type="redirectAction">toManageMeal</result>
+            <interceptor-ref name="loginCheck" />
+            <interceptor-ref name="defaultStack" />
+        </action>
     </package>
 </struts>

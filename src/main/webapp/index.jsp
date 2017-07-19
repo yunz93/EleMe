@@ -39,9 +39,9 @@
                         <font style="color: red">欢迎您：${sessionScope.user.trueName }</font>
                     </s:if>
                     <s:if test="#session.admin!=null">
-                        <a href="">添加餐品</a> |
-                        <a href="">管理餐品</a> |
-                        <a href="">订单处理</a> |
+                        <a href="toAddMeal">添加餐品</a> |
+                        <a href="toManageMeal">管理餐品</a> |
+                        <a href="toManageOrders">订单处理</a> |
                         <a href="logOut?type=adminlogout">注销</a> &nbsp;&nbsp; &nbsp;&nbsp;
                         <font style="color: red">欢迎您：${sessionScope.admin.loginName }</font>
                     </s:if>
