@@ -69,5 +69,26 @@
             <interceptor-ref name="loginCheck" />
             <interceptor-ref name="defaultStack" />
         </action>
+
+        <!--查看我的订单-->
+        <action name="toMyOrders" class="ordersAction" method="toMyOrders">
+            <result name="myorders">/myOrders.jsp</result>
+            <interceptor-ref name="loginCheck" />
+            <interceptor-ref name="defaultStack" />
+        </action>
+
+        <!--查看订单明细-->
+        <action name="toOrdersDetails" class="ordersAction" method="toOrdersDetails">
+            <result name="toOrdersDetails">/myOrdersDetails.jsp</result>
+            <interceptor-ref name="loginCheck" />
+            <interceptor-ref name="defaultStack" />
+        </action>
+
+        <!--删除指定编号的订单-->
+        <action name="deleteOrders" class="ordersAction" method="deleteOrders">
+            <result name="toMyOrders" type="redirectAction">toMyOrders</result>
+            <interceptor-ref name="loginCheck" />
+            <interceptor-ref name="defaultStack" />
+        </action>
     </package>
 </struts>

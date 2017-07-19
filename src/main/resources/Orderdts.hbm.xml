@@ -9,13 +9,13 @@
             <column name="ODID" sql-type="int(4)"/>
             <generator class="native"/>
         </id>
-        <many-to-one name="meal" class="com.eleme.pojo.Meal"
-                     fetch="select" lazy="false">
-            <column name="MealId" />
-        </many-to-one>
         <many-to-one name="orders" cascade="all"
                      class="com.eleme.pojo.Orders" fetch="select" lazy="false">
             <column name="OID" />
+        </many-to-one>
+        <many-to-one name="meal" class="com.eleme.pojo.Meal"
+                     fetch="select" lazy="false">
+            <column name="MealId" />
         </many-to-one>
         <property name="mealPrice">
             <column name="MealPrice" sql-type="decimal(8,2)" precision="8" scale="2" not-null="true"/>

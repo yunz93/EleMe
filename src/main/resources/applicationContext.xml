@@ -30,6 +30,7 @@
                 <prop key="hibernate.dialect">
                     org.hibernate.dialect.MySQL5InnoDBDialect
                 </prop>
+                <prop key="show_sql">true</prop>
             </props>
         </property>
         <property name="mappingLocations">
@@ -125,6 +126,7 @@
     <!--define OrdersAction-->
     <bean id="ordersAction" class="com.eleme.action.OrdersAction" scope="prototype">
         <property name="orderDtsBiz" ref="orderDtsBiz" />
+        <property name="ordersBiz" ref="ordersBiz" />
     </bean>
 
     <!--define OrdersDAOImpl-->
@@ -132,6 +134,7 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
+    <!--define OrdersBizImpl-->
     <bean id="ordersBiz" class="com.eleme.biz.impl.OrdersBizImpl">
         <property name="ordersDAO" ref="ordersDAO" />
     </bean>
