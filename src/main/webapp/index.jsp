@@ -1,153 +1,155 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
 <%@ taglib uri='/struts-tags' prefix='s' %>
-<%@ page import="java.util.*" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>È§êÂìÅÂàóË°®ÊòæÁ§∫</title>
-        <link rel="stylesheet" href="css/styles.css" type="text/css" />
-    </head>
-    <body>
-        <table width="95%" border="0" cellpadding="0"
-               cellspacing="0" align="center">
-            <tr>
-                <td width="200" height="101">
-                    <img src="images/eleme-icon.png" width="64" height="64" alt="eleme"/>
-                    <strong><span style="font-size: 20px;">EleMe</span> </strong>
-                </td>
-                <td width="640" style="padding-left: 40px;">
+<head>
 
-                </td>
-            </tr>
-            <tr>
-                <td height="41" colspan="2"
-                    style="background-image:url(images/001.gif);" align="center">
-                    |
-                    <a href="toShowMeal.action">ÁΩëÁ´ôÈ¶ñÈ°µ</a> |
-                    <s:if test="(#session.admin==null) && (#session.user==null)">
-                        <a href="register.jsp">Áî®Êà∑Ê≥®ÂÜå</a> |
-                        <a href="login.jsp?role=user">Áî®Êà∑ÁôªÂΩï</a> |
-                        <a href="login.jsp?role=admin">ÁÆ°ÁêÜÂëòÁôªÂΩï</a> |
-                    </s:if>
-                    <s:if test="#session.user!=null">
-                        <a href="modifyMyInfo.jsp">‰øÆÊîπ‰∏™‰∫∫‰ø°ÊÅØ</a> |
-                        <a href="shopCart.jsp">ÊàëÁöÑË¥≠Áâ©ËΩ¶</a> |
-                        <a href="toMyOrders">ÊàëÁöÑËÆ¢Âçï</a> |
-                        <a href="logOut?type=userlogout">Ê≥®ÈîÄ</a> &nbsp;&nbsp; &nbsp;&nbsp;
-                        <font style="color: red">Ê¨¢ËøéÊÇ®Ôºö${sessionScope.user.trueName }</font>
-                    </s:if>
-                    <s:if test="#session.admin!=null">
-                        <a href="toAddMeal">Ê∑ªÂä†È§êÂìÅ</a> |
-                        <a href="toManageMeal">ÁÆ°ÁêÜÈ§êÂìÅ</a> |
-                        <a href="toManageOrders">ËÆ¢ÂçïÂ§ÑÁêÜ</a> |
-                        <a href="logOut?type=adminlogout">Ê≥®ÈîÄ</a> &nbsp;&nbsp; &nbsp;&nbsp;
-                        <font style="color: red">Ê¨¢ËøéÊÇ®Ôºö${sessionScope.admin.loginName }</font>
-                    </s:if>
-                </td>
-            </tr>
-            <tr>
-                <td valign="top" align="center">
-                    <p>
-                        <img src="images/left_top.jpg" width="215" height="100" alt="eat"/>
-                        <br>
-                        <img src="images/003.gif" width="4" height="8" alt="">
-                        <!-- ËèúÁ≥ªÂæ™ÁéØÂºÄÂßã -->
-                        <s:iterator id="mealSeries" value="#request.mealSeriesList">
-                        <br>
-                        <a href="toShowMeal?meal.mealseries.seriesId=${mealSeries.seriesId}">${mealSeries.seriesName }</a>
-                        <br>
-                        </s:iterator>
-                        <!-- ËèúÁ≥ªÂæ™ÁéØÁªìÊùü -->
+    <title>≤Õ∆∑¡–±Ìœ‘ æ</title>
+    <link rel="stylesheet" href="css/styles.css" type="text/css" />
+</head>
 
-                </td>
-                <td valign="top" width="80%">
-                    <img src="images/001.jpg" width="595" height="72" alt=""/>
-                    <br />
-                    <div align="left">
-                        <s:form theme="simple" method="post" action="toShowMeal">
-                            <s:label value="ËæìÂÖ•ËèúÂêçÔºö" />
-                            <s:textfield name="meal.mealName" />
-                            <!-- ÈÄöËøáÈöêËóèË°®ÂçïÂüü‰øùÂ≠òÁî®Êà∑ÈÄâÊã©ËøáÁöÑËèúÁ≥ªÁºñÂè∑ÔºåÂèØÊ†πÊçÆÈ§êÂìÅÂêçÁß∞ÂíåËèúÁ≥ªÁªÑÂêàÊü•ËØ¢ -->
-                            <s:hidden name="meal.mealseries.seriesId" value="%{#request.seriesId}"  />
-                            <s:submit value="Êü•ËØ¢" />
-                        </s:form>
-                    </div>
-                    <br />
-                    <div style="background-image: url(images/004.gif)">
-                        &nbsp;
-                    </div>
-                    <div style="background-color: #FFCC99;" align="right">
-                        <a href="shopCart.jsp"><img src="images/lcart_cn.gif"
-                                                    width="97" height="30" border="0" /> </a>
-                    </div>
-                    <br />
-                    <table cellpadding="5" cellspacing="1" style="font-size: 12px;">
-                        <!-- È§êÂìÅÂæ™ÁéØÂºÄÂßã -->
-                        <s:iterator id="mealItem" value="#request.mealList" status="st">
-                            <s:if test="#st.getIndex()%3==0">
-                                <tr>
+<body>
+<table width="95%" height="170" border="0" cellpadding="0"
+       cellspacing="0" align="center">
+    <tr>
+        <td width="200" height="101">
+            <img src="images/jb_logo.jpg" width="64" height="32" />
+            <strong><span
+                    style="font-size: 20px;">Õ¯…œ∂©≤ÕœµÕ≥</span> </strong>
+        </td>
+        <td width="640" style="padding-left: 40px;">
+
+        </td>
+    </tr>
+    <tr>
+        <td height="41" colspan="2"
+            style="background-image:url(images/001.gif);" align="center">
+            |
+            <a href="toShowMeal">Õ¯’æ ◊“≥</a> |
+            <s:if test="(#session.admin==null) && (#session.user==null)">
+                <a href="register.jsp">”√ªß◊¢≤·</a> |
+                <a href="login.jsp?role=user">”√ªßµ«¬º</a> |
+                <a href="login.jsp?role=admin">π‹¿Ì‘±µ«¬º</a> |
+            </s:if>
+            <s:if test="#session.user!=null">
+                <a href="modifyMyInfo.jsp">–ﬁ∏ƒ∏ˆ»À–≈œ¢</a> |
+                <a href="shopCart.jsp">Œ“µƒπ∫ŒÔ≥µ</a> |
+                <a href="toMyOrders">Œ“µƒ∂©µ•</a> |
+                <a href="logOut?type=userlogout">◊¢œ˙</a> &nbsp;&nbsp; &nbsp;&nbsp;
+                <font style="color: red">ª∂”≠ƒ˙£∫${sessionScope.user.trueName }</font>
+            </s:if>
+            <s:if test="#session.admin!=null">
+                <a href="toAddMeal">ÃÌº”≤Õ∆∑</a> |
+                <a href="toManageMeal">π‹¿Ì≤Õ∆∑</a> |
+                <a href="toManageOrders">∂©µ•¥¶¿Ì</a> |
+                <a href="logOut?type=adminlogout">◊¢œ˙</a> &nbsp;&nbsp; &nbsp;&nbsp;
+                <font style="color: red">ª∂”≠ƒ˙£∫${sessionScope.admin.loginName }</font>
+            </s:if>
+
+        </td>
+    </tr>
+    <tr>
+        <td valign="top" align="center">
+            <p>
+                <img src="images/left_top.jpg" width="215" height="100" />
+                <br>
+                <img src="images/003.gif" width="191" height="8">
+                <!-- ≤Àœµ—≠ª∑ø™ º -->
+                <s:iterator id="mealSeries" value="#request.mealSeriesList">
+                <br>
+                <a href="toShowMeal?meal.mealseries.seriesId=${mealSeries.seriesId}">${mealSeries.seriesName }</a>
+                <br>
+                </s:iterator>
+                <!-- ≤Àœµ—≠ª∑Ω· ¯ -->
+
+        </td>
+        <td valign="top" width="80%">
+            <img src="images/001.jpg" width="595" height="72" />
+            <br />
+            <div align="left">
+                <s:form theme="simple" method="post" action="toShowMeal">
+                    <s:label value=" ‰»Î≤À√˚£∫" />
+                    <s:textfield name="meal.mealName" />
+                    <!-- Õ®π˝“˛≤ÿ±Ìµ•”Ú±£¥Ê”√ªß—°‘Òπ˝µƒ≤Àœµ±‡∫≈£¨ø…∏˘æ›≤Õ∆∑√˚≥∆∫Õ≤Àœµ◊È∫œ≤È—Ø -->
+                    <s:hidden name="meal.mealseries.seriesId" value="%{#request.seriesId}"  />
+                    <s:submit value="≤È—Ø" />
+                </s:form>
+            </div>
+            <br />
+            <div style="background-image: url(images/004.gif)">
+                &nbsp;
+            </div>
+            <div style="background-color: #FFCC99;" align="right">
+                <a href="shopCart.jsp"><img src="images/lcart_cn.gif"
+                                            width="97" height="30" border="0" /> </a>
+            </div>
+            <br />
+            <table cellpadding="5" cellspacing="1" style="font-size: 12px;">
+                <!-- ≤Õ∆∑—≠ª∑ø™ º -->
+                <s:iterator id="mealItem" value="#request.mealList" status="st">
+                    <s:if test="#st.getIndex()%3==0">
+                        <tr>
+                    </s:if>
+                    <td>
+                        <a href="toShowDetails?meal.mealId=${mealItem.mealId}"><img
+                                src="mealimages/${mealItem.mealImage }" width="148"
+                                height="126" border="0" /> </a>
+                    </td>
+                    <td>
+                        <div>
+                                ${ mealItem.mealId}
+                            :
+                                ${ mealItem.mealName}
+                            <br />
+                            <span style="text-decoration: line-through; color: gray;">‘≠º€£∫»À√Ò±“${ mealItem.mealPrice}‘™</span>
+                            <br />
+                            œ÷º€£∫»À√Ò±“
+                                ${ mealItem.mealPrice*0.9}
+                            ‘™
+                        </div>
+                        <a href="toShowDetails?meal.mealId=${mealItem.mealId}"><img src="images/detail_cn.gif" border="0" width="60" height="20" /></a>
+                        <a href="addtoshopcart?mealId=${mealItem.mealId }"><img src="images/buy_cn.gif" border="0" width="60" height="20" /></a>
+                    </td>
+                    <s:if test="#st.getIndex()%3==2">
+                        </tr>
+                    </s:if>
+                </s:iterator>
+                <!-- ≤Õ∆∑—≠ª∑ø™ º -->
+
+                <!-- ∑÷“≥≥¨¡¥Ω”ø™ º -->
+                <table align="right">
+                    <tr>
+                        <td width="130"></td>
+                        <td width="80">
+                            <s:if test="pager.curPage>1">
+                                <A href='toShowMeal?pager.curPage=1&meal.mealseries.seriesId=${requestScope.seriesId}&meal.mealName=${requestScope.mealName}'> ◊“≥</A>&nbsp;&nbsp;
+                                <A href='toShowMeal?pager.curPage=${pager.curPage-1 }&meal.mealseries.seriesId=${requestScope.seriesId}&meal.mealName=${requestScope.mealName}'>…œ“ª“≥</A>
                             </s:if>
-                            <td>
-                                <a href="toShowMeal?meal.mealId=${mealItem.mealId}"><img
-                                        src="mealimages/${mealItem.mealImage }" width="148"
-                                        height="126" border="0" /> </a>
-                            </td>
-                            <td>
-                                <div>
-                                        ${ mealItem.mealId}
-                                    :
-                                        ${ mealItem.mealName}
-                                    <br />
-                                    <span style="text-decoration: line-through; color: gray;">Âéü‰ª∑Ôºö‰∫∫Ê∞ëÂ∏Å${ mealItem.mealPrice}ÂÖÉ</span>
-                                    <br />
-                                    Áé∞‰ª∑Ôºö‰∫∫Ê∞ëÂ∏Å
-                                        ${ mealItem.mealPrice*0.9}
-                                    ÂÖÉ
-                                </div>
-                                <a href="toShowMeal?meal.mealId=${mealItem.mealId}"><img src="images/detail_cn.gif" border="0" width="60" height="20" /></a>
-                                <a href="addToShopcart?mealId=${mealItem.mealId }"><img src="images/buy_cn.gif" border="0" width="60" height="20" /></a>
-                            </td>
-                            <s:if test="#st.getIndex()%3==2">
-                                </tr>
+                        </td>
+                        <td width="80">
+                            <s:if test="pager.curPage < pager.pageCount">
+                                <A href='toShowMeal?pager.curPage=${pager.curPage+1}&meal.mealseries.seriesId=${requestScope.seriesId}&meal.mealName=${requestScope.mealName}'>œ¬“ª“≥</A>&nbsp;&nbsp;
+                                <A href='toShowMeal?pager.curPage=${pager.pageCount }&meal.mealseries.seriesId=${requestScope.seriesId}&meal.mealName=${requestScope.mealName}'>Œ≤“≥</A>
                             </s:if>
-                        </s:iterator>
-                        <!-- È§êÂìÅÂæ™ÁéØÁªìÊùü -->
+                        </td>
+                        <td>π≤${pager.rowCount}º«¬º£¨π≤${pager.curPage}/${pager.pageCount}“≥&nbsp;&nbsp;
 
-                        <!-- ÂàÜÈ°µË∂ÖÈìæÊé•ÂºÄÂßã -->
-                        <table align="right">
-                            <tr>
-                                <td width="130"></td>
-                                <td width="80">
-                                    <s:if test="pager.curPage>1">
-                                        <A href='toShowMeal?pager.curPage=1&meal.mealseries.seriesId=${requestScope.seriesId}&meal.mealName=${requestScope.mealName}'>È¶ñÈ°µ</A>&nbsp;&nbsp;
-                                        <A href='toShowMeal?pager.curPage=${pager.curPage-1 }&meal.mealseries.seriesId=${requestScope.seriesId}&meal.mealName=${requestScope.mealName}'>‰∏ä‰∏ÄÈ°µ</A>
-                                    </s:if>
-                                </td>
-                                <td width="80">
-                                    <s:if test="pager.curPage < pager.pageCount">
-                                        <A href='toShowMeal?pager.curPage=${pager.curPage+1}&meal.mealseries.seriesId=${requestScope.seriesId}&meal.mealName=${requestScope.mealName}'>‰∏ã‰∏ÄÈ°µ</A>&nbsp;&nbsp;
-                                        <A href='toShowMeal?pager.curPage=${pager.pageCount }&meal.mealseries.seriesId=${requestScope.seriesId}&meal.mealName=${requestScope.mealName}'>Â∞æÈ°µ</A>
-                                    </s:if>
-                                </td>
-                                <td>ÂÖ±${pager.rowCount}ËÆ∞ÂΩïÔºåÂÖ±${pager.curPage}/${pager.pageCount}È°µ&nbsp;&nbsp;
+                        </td>
+                    </tr>
+                </table>
+                <!-- ∑÷“≥≥¨¡¥Ω”Ω· ¯-->
 
-                                </td>
-                            </tr>
-                        </table>
-                        <!-- ÂàÜÈ°µË∂ÖÈìæÊé•ÁªìÊùü-->
-
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <br>
-                    <hr width=100%>
-                    <br>
-                </td>
-            </tr>
-        </table>
-    </body>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" align="center">
+            <br>
+            <hr width=100%>
+            <br>
+        </td>
+    </tr>
+</table>
+</body>
 </html>

@@ -150,7 +150,7 @@ public class MealAction extends ActionSupport implements RequestAware {
         //获取菜系列表，存入request范围
         List mealSeriesList=mealSeriesBiz.getMealSeries();
         request.put("mealSeriesList", mealSeriesList);
-        return "managemeal";
+        return "manageMeal";
     }
 
     //获取要修改的餐品对象，存入request范围，再转到餐品信息修改页

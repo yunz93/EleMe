@@ -25,6 +25,16 @@
             <result name="toShowMeal">/index.jsp</result>
         </action>
 
+        <!--用户注册-->
+        <action name="register" class="userAction" method="register">
+            <result name="toIndex" type="redirectAction">toShowMeal</result>
+        </action>
+
+        <!--修改用户信息-->
+        <action name="modifyUsers" class="userAction" method="modifyUsers">
+            <result name="toIndex" type="redirectAction">toShowMeal</result>
+        </action>
+
         <!--验证登录-->
         <action name="validateLogin" class="userAction" method="validateLogin">
             <result name="toIndex" type="redirectAction">toShowMeal</result>
@@ -91,6 +101,13 @@
             <interceptor-ref name="defaultStack" />
         </action>
 
+        <!--显示菜品详细信息-->
+        <action name="toShowDetails" class="mealAction" method="toShowDetails">
+            <result name="toShowDetails">/details.jsp</result>
+            <interceptor-ref name="loginCheck" />
+            <interceptor-ref name="defaultStack" />
+        </action>
+
         <!--转向添加餐品-->
         <action name="toAddMeal" class="mealAction" method="toAddMeal">
             <result name="addMeal">/addMeal.jsp</result>
@@ -125,6 +142,20 @@
         <!--删除菜品-->
         <action name="deleteMeal" class="mealAction" method="deleteMeal">
             <result name="toManageMeal" type="redirectAction">toManageMeal</result>
+            <interceptor-ref name="loginCheck" />
+            <interceptor-ref name="defaultStack" />
+        </action>
+
+        <!--显示订单管理页-->
+        <action name="toManageOrders" class="ordersAction" method="toManageOrders">
+            <result name="manageOrders">/manageOrders.jsp</result>
+            <interceptor-ref name="loginCheck" />
+            <interceptor-ref name="defaultStack" />
+        </action>
+
+        <!--处理订单-->
+        <action name="handleOrders" class="ordersAction" method="handleOrders">
+            <result name="toMangeOrders" type="redirectAction">toManageOrders</result>
             <interceptor-ref name="loginCheck" />
             <interceptor-ref name="defaultStack" />
         </action>

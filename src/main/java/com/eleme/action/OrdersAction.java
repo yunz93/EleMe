@@ -2,10 +2,7 @@ package com.eleme.action;
 
 import com.eleme.biz.OrderDtsBiz;
 import com.eleme.biz.OrdersBiz;
-import com.eleme.pojo.CartItemBean;
-import com.eleme.pojo.Orderdts;
-import com.eleme.pojo.Orders;
-import com.eleme.pojo.Users;
+import com.eleme.pojo.*;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.SessionAware;
@@ -96,4 +93,57 @@ public class OrdersAction extends ActionSupport implements RequestAware, Session
         ordersBiz.deleteOrdersByOid(oid);
         return "toMyOrders";
     }
+
+    private Pager pager;
+
+    public Pager getPager() {
+        return pager;
+    }
+
+    public void setPager(Pager pager) {
+        this.pager = pager;
+    }
+
+    private Orders orders;
+
+    public Orders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
+    }
+
+    // 获取所有订单列表，再转向订单显示页
+    public String toManageOrders() throws Exception {
+        int curPage = 1;
+        if (pager != null) {
+            curPage = pager.getCurPage();
+        }
+        List ordersList = null;
+        if (orders != null) {
+            ordersList = ordersBiz.getOrdersByCondition(orders, curPage);
+            pager = ordersBiz.getPagerOfOrders(orders);
+            if (orders.getOid() != null)
+                request.put("oid", orders.getOid());
+            if ((orders.getOrderState() != null) && !orders.getOrderState().equals(""))
+                request.put("orderState", orders.getOrderState());
+        } else {
+            ordersList = ordersBiz.getAllOrders(curPage);
+            pager = ordersBiz.getPagerOfOrders();
+        }
+        pager.setCurPage(curPage);
+        request.put("ordersList", ordersList);
+        return "manageOrders";
+    }
+
+    // 处理订单
+    public String handleOrders() throws Exception {
+        Orders orders = ordersBiz.getOrdersByOid(oid);
+        orders.setOrderState("已处理");
+        ordersBiz.handleOrders(orders);
+        return "toMangeOrders";
+    }
 }
+
+
